@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<!-- move to Struts.properties <constant name="struts.devMode" value="true" 
+		/> -->
+
+	<package name="user" namespace="/User" extends="struts-default">
+
+		<interceptors>
+			<interceptor name="myinterceptor"
+				class="com.demo.MyInterceptor" />
+		</interceptors>
+
+		<action name="Login">
+			<result>pages/login.jsp</result>
+
+		</action>
+
+		<action name="Welcome"
+			class="com.demo.user.action.WelcomeUserAction" method="execute">
+			<interceptor-ref name="params" />
+			<!-- <interceptor-ref name="timer" /> -->
+			<interceptor-ref name="myinterceptor" />
+<!-- 			<interceptor-ref name="basicStack" /> -->
+			<result name="SUCCESS" type="dispatcher">
+				<param name="location">
+					./pages/welcome_user.jsp
+				</param>
+		
+			</result>
+			<result name="ERROR">./pages/deny_user.jsp</result>
+		</action>
+
+	</package>
+
+	<!-- <include file="my-struts1.xml"/> <include file="my-struts2.xml"/> -->
+</struts>
